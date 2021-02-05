@@ -128,7 +128,7 @@ function createPluginsConfig(
 }
 
 async function waitForTestResults(page: playwright.Page): Promise<number> {
-  await page.waitForFunction('mochaStatus.finished', { timeout: 0 });
+  await page.waitForFunction('mochaStatus.finished', null, { timeout: 0 });
   return page.evaluate<number>('mochaStatus.failed');
 }
 
