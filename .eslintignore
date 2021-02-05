@@ -1,0 +1,7 @@
+node_modules
+fixtures
+cjs
+esm
+umd
+dist
+static

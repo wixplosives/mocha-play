@@ -1,0 +1,22 @@
+name: webpack4
+
+on: [push, pull_request]
+
+jobs:
+  webpack4:
+    name: node ${{ matrix.node-version }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [14]
+        os: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm install
+      - run: npm run build
+      - run: npm i webpack@4 html-webpack-plugin@4 -D
+      - run: npm run test:only
