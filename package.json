@@ -32,7 +32,7 @@
     "express": "^4.17.1",
     "find-up": "^5.0.0",
     "glob": "^7.1.6",
-    "playwright-core": "^1.8.1",
+    "playwright-core": "^1.9.0",
     "style-loader": "^2.0.0",
     "webpack-dev-middleware": "^4.1.0"
   },
