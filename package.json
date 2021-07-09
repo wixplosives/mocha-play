@@ -39,7 +39,7 @@
   "devDependencies": {
     "@ts-tools/node": "^3.0.1",
     "@ts-tools/webpack-loader": "^3.0.2",
-    "@types/chai": "^4.2.20",
+    "@types/chai": "^4.2.21",
     "@types/express": "^4.17.13",
     "@types/glob": "^7.1.4",
     "@types/mocha": "^8.2.3",
