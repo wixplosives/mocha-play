@@ -1,21 +1,17 @@
 import { join, resolve } from 'path';
 import { spawnSync } from 'child_process';
 import { expect } from 'chai';
-import stripAnsi from 'strip-ansi';
 
 const cliPath = require.resolve('../bin/mocha-play.js');
 const fixturesRoot = join(__dirname, 'fixtures');
 
-const runMochaPlay = (options: { args: string[]; fixture?: string }) => {
-  const spawnResult = spawnSync('node', [cliPath, '-l', ...options.args.map((arg) => `"${arg}"`)], {
+const runMochaPlay = (options: { args: string[]; fixture?: string }) =>
+  spawnSync('node', [cliPath, '-l', ...options.args.map((arg) => `"${arg}"`)], {
     cwd: resolve(fixturesRoot, options.fixture || '.'),
     shell: true,
     encoding: 'utf8',
+    env: { ...process.env, NO_COLOR: '1' },
   });
-  spawnResult.stdout = stripAnsi(spawnResult.stdout);
-  spawnResult.stderr = stripAnsi(spawnResult.stderr);
-  return spawnResult;
-};
 
 describe('mocha-play', function () {
   this.timeout(20_000);
