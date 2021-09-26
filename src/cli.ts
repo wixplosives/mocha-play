@@ -1,15 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+import fs from 'fs';
 import path from 'path';
+import { pathToFileURL, URL } from 'url';
 import { Command } from 'commander';
 import glob from 'glob';
 import type webpack from 'webpack';
 import type playwright from 'playwright-core';
 import chalk from 'chalk';
-import findUp from 'find-up';
-import { runTests } from './run-tests';
+import { findUpSync } from 'find-up';
+import { runTests } from './run-tests.js';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { name, version, description } = require('../package.json') as {
+const packageJsonPath = new URL('../package.json', import.meta.url);
+const { name, version, description } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8')) as {
   name: string;
   version: string;
   description: string;
@@ -20,7 +22,7 @@ process.on('unhandledRejection', printErrorAndExit);
 const parseNumber = (value: string) => parseInt(value, 10);
 
 const program = new Command(name);
-const cliOptions = program
+program
   .version(version, '-v, --version')
   .description(description)
   .usage('[options] <glob ...>')
@@ -31,68 +33,69 @@ const cliOptions = program
   .option('-p, --port <number>', 'port to start the http server with', parseNumber, 3000)
   .option('--reporter <spec/html/dot/...>', 'mocha reporter to use (default: "spec")')
   .option('--ui <bdd|tdd|qunit|exports>', 'mocha user interface', 'bdd')
-  .parse()
-  .opts();
+  .action(async (cliOptions) => {
+    const {
+      webpackConfig: webpackConfigPath = findUpSync('webpack.config.js'),
+      watch,
+      listFiles,
+      reporter,
+      timeout,
+      ui,
+      port: preferredPort,
+    } = cliOptions;
 
-const {
-  webpackConfig: webpackConfigPath = findUp.sync('webpack.config.js'),
-  watch,
-  listFiles,
-  reporter,
-  timeout,
-  ui,
-  port: preferredPort,
-} = cliOptions;
+    const foundFiles: string[] = [];
+    for (const arg of program.args) {
+      for (const foundFile of glob.sync(arg, { absolute: true })) {
+        foundFiles.push(path.normalize(foundFile));
+      }
+    }
 
-const foundFiles: string[] = [];
-for (const arg of program.args) {
-  for (const foundFile of glob.sync(arg, { absolute: true })) {
-    foundFiles.push(foundFile);
-  }
-}
+    const { length: numFound } = foundFiles;
+    if (numFound === 0) {
+      throw chalk.red(`Cannot find any test files`);
+    }
 
-const { length: numFound } = foundFiles;
-if (numFound === 0) {
-  printErrorAndExit(chalk.red(`Cannot find any test files`));
-}
+    console.log(`Found ${numFound} test files in ${process.cwd()}`);
+    if (listFiles) {
+      for (const foundFile of foundFiles) {
+        console.log(`- ${foundFile}`);
+      }
+    }
 
-console.log(`Found ${numFound} test files in ${process.cwd()}`);
-if (listFiles) {
-  for (const foundFile of foundFiles) {
-    console.log(`- ${foundFile}`);
-  }
-}
+    const launchOptions: playwright.LaunchOptions | undefined = watch ? { devtools: true } : undefined;
 
-const launchOptions: playwright.LaunchOptions | undefined = watch ? { devtools: true } : undefined;
+    const browserContextOptions: playwright.BrowserContextOptions = watch
+      ? { viewport: null }
+      : { viewport: { width: 1024, height: 768 } };
 
-const browserContextOptions: playwright.BrowserContextOptions = watch
-  ? { viewport: null }
-  : { viewport: { width: 1024, height: 768 } };
+    // load user's webpack configuration
+    const webpackConfig = webpackConfigPath
+      ? ((await import(pathToFileURL(path.resolve(webpackConfigPath)).href)) as { default: webpack.Configuration })
+          .default
+      : {};
 
-// load user's webpack configuration
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const webpackConfig = webpackConfigPath ? (require(path.resolve(webpackConfigPath)) as webpack.Configuration) : {};
-if (typeof webpackConfig === 'function') {
-  printErrorAndExit(chalk.red('Webpack configuration file exports a function, which is not yet supported.'));
-}
+    if (typeof webpackConfig === 'function') {
+      throw chalk.red('Webpack configuration file exports a function, which is not yet supported.');
+    }
 
-const defaultReporter = watch ? 'html' : 'spec';
+    const defaultReporter = watch ? 'html' : 'spec';
 
-runTests(foundFiles, {
-  preferredPort,
-  webpackConfig,
-  launchOptions,
-  browserContextOptions,
-  keepOpen: watch,
-  reporter: reporter || defaultReporter,
-  timeout,
-  ui,
-}).catch(printErrorAndExit);
+    await runTests(foundFiles, {
+      preferredPort,
+      webpackConfig,
+      launchOptions,
+      browserContextOptions,
+      keepOpen: watch,
+      reporter: reporter || defaultReporter,
+      timeout,
+      ui,
+    });
+  })
+  .parseAsync()
+  .catch(printErrorAndExit);
 
 function printErrorAndExit(message: unknown) {
   console.error(message);
-  if (!watch) {
-    // keep process open in watch mode
-    process.exit(1);
-  }
+  process.exitCode = 1;
 }
