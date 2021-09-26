@@ -1,5 +1,5 @@
 /** @type {import('webpack').Configuration} */
-module.exports = {
+const webpackConfig = {
   devtool: 'source-map',
   module: {
     rules: [
@@ -13,3 +13,5 @@ module.exports = {
     extensions: ['.ts', '.tsx', '.mjs', '.js', '.json'],
   },
 };
+
+export default webpackConfig;

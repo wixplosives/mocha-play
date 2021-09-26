@@ -1,28 +1,25 @@
+import { fileURLToPath, URL } from 'url';
 import express from 'express';
 import chalk from 'chalk';
 import playwright from 'playwright-core';
 import webpack from 'webpack';
+import webpackDevMiddleware from 'webpack-dev-middleware';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-
 import { safeListeningHttpServer } from 'create-listening-server';
-import { hookPageConsole } from './hook-page-console';
+import { hookPageConsole } from './hook-page-console.js';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const webpackDevMiddleware = require('webpack-dev-middleware') as (
-  compiler: webpack.Compiler
-) => express.Handler & { close(): unknown };
-const mochaSetupPath = require.resolve('../static/mocha-setup.js');
+const mochaSetupPath = fileURLToPath(new URL('../static/mocha-setup.js', import.meta.url));
 
 export interface IRunTestsOptions {
-  preferredPort?: number;
-  launchOptions?: playwright.LaunchOptions;
-  browserContextOptions?: playwright.BrowserContextOptions;
-  webpackConfig?: webpack.Configuration;
-  keepOpen?: boolean;
-  colors?: boolean;
-  reporter?: string;
-  ui?: string;
-  timeout?: number;
+  preferredPort?: number | undefined;
+  launchOptions?: playwright.LaunchOptions | undefined;
+  browserContextOptions?: playwright.BrowserContextOptions | undefined;
+  webpackConfig?: webpack.Configuration | undefined;
+  keepOpen?: boolean | undefined;
+  colors?: boolean | undefined;
+  reporter?: string | undefined;
+  ui?: string | undefined;
+  timeout?: number | undefined;
 }
 
 export async function runTests(testFiles: string[], options: IRunTestsOptions = {}): Promise<void> {

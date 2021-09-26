@@ -2,7 +2,10 @@
   "name": "mocha-play",
   "description": "Run mocha tests in chromium, using webpack and playwright.",
   "version": "2.0.3",
-  "main": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "types": "dist/index.d.ts",
   "bin": {
     "mocha-play": "bin/mocha-play.js"
@@ -11,12 +14,11 @@
     "clean": "rimraf ./dist",
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.build.json",
-    "pretest": "npm run build && npm run lint",
+    "pretest": "npm run typecheck && npm run lint && npm run build",
     "test": "npm run test:only",
     "test:only": "mocha \"./test/**/*.spec.ts\"",
     "lint": "eslint . -f codeframe",
     "typecheck": "tsc --noEmit",
-    "mocha-play": "node -r @ts-tools/node/r ./src/cli.ts",
     "prepack": "npm run build"
   },
   "peerDependencies": {
@@ -29,7 +31,7 @@
     "create-listening-server": "^1.0.0",
     "css-loader": "^6.3.0",
     "express": "^4.17.1",
-    "find-up": "^5.0.0",
+    "find-up": "^6.0.0",
     "glob": "^7.2.0",
     "html-webpack-plugin": "^5.3.2",
     "playwright-core": "^1.15.0",
@@ -37,13 +39,14 @@
     "webpack-dev-middleware": "^5.2.1"
   },
   "devDependencies": {
-    "@ts-tools/node": "^3.0.1",
+    "@ts-tools/esm": "^3.0.1",
     "@ts-tools/webpack-loader": "^3.0.2",
     "@types/chai": "^4.2.22",
     "@types/express": "^4.17.13",
     "@types/glob": "^7.1.4",
     "@types/mocha": "^9.0.0",
     "@types/node": "12",
+    "@types/webpack-dev-middleware": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
     "@typescript-eslint/parser": "^4.31.2",
     "chai": "^4.3.4",
