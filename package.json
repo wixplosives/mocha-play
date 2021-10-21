@@ -34,7 +34,7 @@
     "find-up": "^6.2.0",
     "glob": "^7.2.0",
     "html-webpack-plugin": "^5.4.0",
-    "playwright-core": "^1.15.2",
+    "playwright-core": "^1.16.0",
     "style-loader": "^3.3.0",
     "webpack-dev-middleware": "^5.2.1"
   },
