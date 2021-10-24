@@ -4,16 +4,24 @@
     "es2017": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "prettier"
-  ],
+  "extends": ["eslint:recommended", "prettier"],
+  "plugins": ["no-only-tests"],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "sourceType": "module"
   },
-  "rules": {
-    "@typescript-eslint/unbound-method": "off"
-  }
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "project": "./{src,test}/tsconfig.json"
+      },
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
+      "rules": {
+        "@typescript-eslint/unbound-method": "off"
+      }
+    }
+  ]
 }
