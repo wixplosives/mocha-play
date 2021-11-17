@@ -35,7 +35,7 @@
     "html-webpack-plugin": "^5.5.0",
     "playwright-core": "^1.16.3",
     "style-loader": "^3.3.1",
-    "webpack-dev-middleware": "^5.2.1"
+    "webpack-dev-middleware": "^5.2.2"
   },
   "devDependencies": {
     "@ts-tools/webpack-loader": "^3.0.2",
