@@ -6,7 +6,6 @@ import { Command } from 'commander';
 import glob from 'glob';
 import type webpack from 'webpack';
 import type playwright from 'playwright-core';
-import chalk from 'chalk';
 import { findUpSync } from 'find-up';
 import { runTests } from './run-tests.js';
 
@@ -53,7 +52,7 @@ program
 
     const { length: numFound } = foundFiles;
     if (numFound === 0) {
-      throw chalk.red(`Cannot find any test files`);
+      throw new Error(`Cannot find any test files`);
     }
 
     console.log(`Found ${numFound} test files in ${process.cwd()}`);
@@ -76,7 +75,7 @@ program
       : {};
 
     if (typeof webpackConfig === 'function') {
-      throw chalk.red('Webpack configuration file exports a function, which is not yet supported.');
+      throw new Error('Webpack configuration file exports a function, which is not yet supported.');
     }
 
     const defaultReporter = watch ? 'html' : 'spec';

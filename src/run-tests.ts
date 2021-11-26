@@ -1,6 +1,5 @@
 import { fileURLToPath, URL } from 'url';
 import express from 'express';
-import chalk from 'chalk';
 import playwright from 'playwright-core';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -92,7 +91,7 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
     const failedCount = await Promise.race([waitForTestResults(page), failsOnPageError]);
 
     if (failedCount) {
-      throw chalk.red(`${failedCount as number} tests failed!`);
+      throw new Error(`${failedCount as number} tests failed!`);
     }
   } finally {
     if (!keepOpen) {
