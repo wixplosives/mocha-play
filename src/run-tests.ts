@@ -23,7 +23,7 @@ export interface IRunTestsOptions {
 
 export async function runTests(testFiles: string[], options: IRunTestsOptions = {}): Promise<void> {
   const { preferredPort = 3000, webpackConfig = {}, launchOptions, browserContextOptions, keepOpen } = options;
-  const closables: Array<{ close(): unknown | Promise<unknown> }> = [];
+  const closables: Array<() => Promise<void>> = [];
 
   try {
     console.log(`Bundling using webpack...`);
@@ -40,7 +40,12 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
     });
 
     const devMiddleware = webpackDevMiddleware(compiler);
-    closables.push(devMiddleware);
+    closables.push(
+      () =>
+        new Promise<void>((res, rej) => {
+          devMiddleware.close((e) => (e ? rej(e) : res()));
+        })
+    );
 
     compiler.hooks.done.tap('mocha-play', () => console.log(`Done bundling.`));
 
@@ -56,26 +61,20 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
     app.use(express.static(compiler.options.context || process.cwd()));
 
     const { httpServer, port } = await safeListeningHttpServer(preferredPort, app);
-    closables.push(httpServer);
+    closables.push(
+      () =>
+        new Promise<void>((res, rej) => {
+          httpServer.close((e) => (e ? rej(e) : res()));
+        })
+    );
     console.log(`HTTP server is listening on port ${port}`);
 
     const browser = await playwright.chromium.launch(launchOptions);
-    closables.push(browser);
+    closables.push(() => browser.close());
     const context = await browser.newContext(browserContextOptions);
     const page = await context.newPage();
 
     hookPageConsole(page);
-    // page.on('console', (m) => {
-    //   const messageText = m.text();
-    //   if (messageText === `JSHandle@error`) {
-    //     const [handle] = m.args();
-    //     if (handle) {
-    //       handle.jsonValue().then(console.log, () => undefined);
-    //     }
-    //   } else {
-    //     console.log(messageText);
-    //   }
-    // });
 
     page.on('dialog', (dialog) => {
       dialog.dismiss().catch((e) => console.error(e));
@@ -95,7 +94,7 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
     }
   } finally {
     if (!keepOpen) {
-      await Promise.all(closables.map((closable) => closable.close()));
+      await Promise.all(closables.map((close) => close()));
       closables.length = 0;
     }
   }
