@@ -25,7 +25,7 @@
     "webpack": "^5.0.0"
   },
   "dependencies": {
-    "commander": "^8.3.0",
+    "commander": "^9.0.0",
     "create-listening-server": "^1.0.0",
     "css-loader": "^6.5.1",
     "express": "^4.17.2",
