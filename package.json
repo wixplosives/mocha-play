@@ -29,7 +29,7 @@
     "create-listening-server": "^1.0.0",
     "css-loader": "^6.6.0",
     "express": "^4.17.2",
-    "find-up": "^6.2.0",
+    "find-up": "^6.3.0",
     "glob": "^7.2.0",
     "html-webpack-plugin": "^5.5.0",
     "playwright-core": "^1.18.1",
