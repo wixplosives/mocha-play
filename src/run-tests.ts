@@ -1,4 +1,5 @@
-import { fileURLToPath, URL } from 'url';
+import { createRequire } from 'module';
+import path from 'path';
 import express from 'express';
 import playwright from 'playwright-core';
 import webpack from 'webpack';
@@ -7,7 +8,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { safeListeningHttpServer } from 'create-listening-server';
 import { hookPageConsole } from './hook-page-console.js';
 
-const mochaSetupPath = fileURLToPath(new URL('../static/mocha-setup.js', import.meta.url));
+const require = createRequire(import.meta.url);
 
 export interface IRunTestsOptions {
   preferredPort?: number | undefined;
@@ -32,10 +33,25 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
       ...webpackConfig,
       entry: {
         ...(await getEntryObject(webpackConfig.entry)),
-        mocha: mochaSetupPath,
-        units: testFiles,
+        tests: testFiles,
       },
-      plugins: createPluginsConfig(webpackConfig.plugins, options),
+      plugins: [
+        ...(webpackConfig.plugins ?? []),
+
+        // insert html webpack plugin that targets our own chunks
+        new HtmlWebpackPlugin({
+          filename: 'tests.html',
+          title: 'mocha tests',
+          template: require.resolve('../static/index.ejs'),
+          chunks: ['tests'],
+          templateParameters: {
+            MOCHA_UI: options.ui ?? 'bdd',
+            MOCHA_COLOR: options.colors ?? true,
+            MOCHA_REPORTER: options.reporter ?? 'spec',
+            MOCHA_TIMEOUT: options.timeout ?? 2000,
+          },
+        }),
+      ],
       stats: 'errors-warnings',
     });
 
@@ -58,6 +74,7 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
     }
     const app = express();
     app.use(devMiddleware);
+    app.use('/mocha', express.static(path.dirname(require.resolve('mocha/package.json'))));
     app.use(express.static(compiler.options.context || process.cwd()));
 
     const { httpServer, port } = await safeListeningHttpServer(preferredPort, app);
@@ -85,7 +102,7 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
       page.once('crash', reject);
     });
 
-    await page.goto(`http://localhost:${port}/mocha.html`);
+    await page.goto(`http://localhost:${port}/tests.html`);
 
     const failedCount = await Promise.race([waitForTestResults(page), failsOnPageError]);
 
@@ -98,28 +115,6 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
       closables.length = 0;
     }
   }
-}
-
-function createPluginsConfig(
-  existingPlugins: webpack.WebpackPluginInstance[] = [],
-  options: IRunTestsOptions
-): webpack.WebpackPluginInstance[] {
-  return [
-    ...existingPlugins,
-
-    // insert html webpack plugin that targets our own chunks
-    new HtmlWebpackPlugin({ filename: 'mocha.html', title: 'mocha tests', chunks: ['mocha', 'units'] }),
-
-    // inject options to mocha-setup.js (in "static" folder)
-    new webpack.DefinePlugin({
-      'process.env': {
-        MOCHA_UI: JSON.stringify(options.ui),
-        MOCHA_COLORS: JSON.stringify(options.colors),
-        MOCHA_REPORTER: JSON.stringify(options.reporter),
-        MOCHA_TIMEOUT: JSON.stringify(options.timeout),
-      },
-    }),
-  ];
 }
 
 async function waitForTestResults(page: playwright.Page): Promise<number> {
