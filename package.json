@@ -27,13 +27,11 @@
   "dependencies": {
     "commander": "^9.0.0",
     "create-listening-server": "^1.0.0",
-    "css-loader": "^6.7.1",
     "express": "^4.17.3",
     "find-up": "^6.3.0",
     "glob": "^7.2.0",
     "html-webpack-plugin": "^5.5.0",
     "playwright-core": "^1.20.0",
-    "style-loader": "^3.3.1",
     "webpack-dev-middleware": "^5.3.1"
   },
   "devDependencies": {
