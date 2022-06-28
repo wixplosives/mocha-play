@@ -1,4 +1,4 @@
-interface SomeInterface {
+export interface SomeInterface {
   x: number;
   y: number;
 }
