@@ -59,6 +59,28 @@ describe('mocha-play', function () {
     expect(status).to.equal(0);
   });
 
+  it('automatically finds and uses webpack.config.cjs', () => {
+    const { output, status } = runMochaPlay({
+      args: ['./typescript-file.ts'],
+      fixture: 'with-cjs-config',
+    });
+
+    expect(output).to.include('Found 1 test files');
+    expect(output).to.include('1 passing');
+    expect(status).to.equal(0);
+  });
+
+  it('automatically finds and uses webpack.config.mjs', () => {
+    const { output, status } = runMochaPlay({
+      args: ['./typescript-file.ts'],
+      fixture: 'with-mjs-config',
+    });
+
+    expect(output).to.include('Found 1 test files');
+    expect(output).to.include('1 passing');
+    expect(status).to.equal(0);
+  });
+
   it('allows bundling using custom webpack configuration', () => {
     const { output, status } = runMochaPlay({
       args: ['./typescript-file.ts', '-c', './my.config.cjs'],
