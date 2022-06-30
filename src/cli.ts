@@ -34,7 +34,7 @@ program
   .option('--ui <bdd|tdd|qunit|exports>', 'mocha user interface', 'bdd')
   .action(async (cliOptions) => {
     const {
-      webpackConfig: webpackConfigPath = findUpSync('webpack.config.js'),
+      webpackConfig: webpackConfigPath = findUpSync(['webpack.config.js', 'webpack.config.mjs', 'webpack.config.cjs']),
       watch,
       listFiles,
       reporter,
