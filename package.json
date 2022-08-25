@@ -31,7 +31,7 @@
     "find-up": "^6.3.0",
     "glob": "^8.0.3",
     "html-webpack-plugin": "^5.5.0",
-    "playwright-core": "^1.25.0",
+    "playwright-core": "^1.25.1",
     "webpack-dev-middleware": "^5.3.3"
   },
   "devDependencies": {
@@ -41,8 +41,8 @@
     "@types/glob": "^7.2.0",
     "@types/mocha": "^9.1.1",
     "@types/node": "16",
-    "@typescript-eslint/eslint-plugin": "^5.33.1",
-    "@typescript-eslint/parser": "^5.33.1",
+    "@typescript-eslint/eslint-plugin": "^5.35.1",
+    "@typescript-eslint/parser": "^5.35.1",
     "chai": "^4.3.6",
     "eslint": "^8.22.0",
     "eslint-config-prettier": "^8.5.0",
