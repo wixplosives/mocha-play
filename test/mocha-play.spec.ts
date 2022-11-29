@@ -134,4 +134,18 @@ describe('mocha-play', function () {
     expect(output).to.include('1 passing');
     expect(status).to.equal(0);
   });
+
+  it('runs only tests matching grep', ()=>{
+    const { output, status } = runMochaPlay({ args: ['./**/*.spec.js', '-g', 'should pass 2'] });
+    expect(output).to.include('Found 2 test files');
+    expect(output).to.include('1 passing');
+    expect(status).to.equal(0);
+  })
+
+  it('runs only tests matching grep', ()=>{
+    const { output, status } = runMochaPlay({ args: ['./**/*.spec.js', '-i', '3'] });
+    expect(output).to.include('Found 2 test files');
+    expect(output).to.include('9 passing');
+    expect(status).to.equal(0);
+  })
 });

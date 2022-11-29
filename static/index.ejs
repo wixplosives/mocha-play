@@ -9,12 +9,23 @@
   <body>
     <div id="mocha"></div>
     <script>
+      function duplicateTests(suite, iterations) {
+        suite.tests = suite.tests.flatMap(
+          t => new Array(iterations).fill(t)
+        )
+        for (const childSuite of suite.suites) {
+            duplicateTests(childSuite, iterations)
+        }
+      }
+
       const ui = "<%= MOCHA_UI %>";
       const reporter = "<%= MOCHA_REPORTER %>";
       const color = <%= MOCHA_COLOR %>;
       const timeout = <%= MOCHA_TIMEOUT %>;
+      const grep = <%= MOCHA_GREP %>;
+      const iterate = <%= MOCHA_ITERATE %>;
 
-      mocha.setup({ ui, reporter, color, timeout });
+      mocha.setup({ ui, reporter, color, timeout, grep });
 
       const mochaStatus = {
         completed: 0,
@@ -26,11 +37,12 @@
       window.mochaStatus = mochaStatus;
 
       window.addEventListener('DOMContentLoaded', () => {
-        mocha
-          .run()
-          .on('test end', () => mochaStatus.completed++)
-          .on('fail', () => mochaStatus.failed++)
-          .on('end', () => (mochaStatus.finished = true));
+          duplicateTests(mocha.suite, iterate)
+          mocha
+            .run()
+            .on('test end', () => mochaStatus.completed++)
+            .on('fail', () => mochaStatus.failed++)
+            .on('end', () => {(mochaStatus.finished = true)});
       });
     </script>
   </body>
