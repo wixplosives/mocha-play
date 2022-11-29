@@ -30,6 +30,8 @@ program
   .option('-l, --list-files', 'list found test files')
   .option('-t, --timeout <ms>', 'mocha timeout in ms', parseNumber, 2000)
   .option('-p, --port <number>', 'port to start the http server with', parseNumber, 3000)
+  .option('-g, --grep <regexp>', 'regular expression to match test title')
+  .option('-i, --iterate <number>', 'repeat each test a few times, regardless of outcome', parseNumber, 1)
   .option('--reporter <spec/html/dot/...>', 'mocha reporter to use (default: "spec")')
   .option('--ui <bdd|tdd|qunit|exports>', 'mocha user interface', 'bdd')
   .action(async (cliOptions) => {
@@ -41,6 +43,8 @@ program
       timeout,
       ui,
       port: preferredPort,
+      grep, 
+      iterate
     } = cliOptions;
 
     const foundFiles: string[] = [];
@@ -89,6 +93,8 @@ program
       reporter: reporter || defaultReporter,
       timeout,
       ui,
+      grep, 
+      iterate
     });
   })
   .parseAsync()

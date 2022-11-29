@@ -8,6 +8,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { safeListeningHttpServer } from 'create-listening-server';
 import { hookPageConsole } from './hook-page-console.js';
 
+
 const require = createRequire(import.meta.url);
 
 export interface IRunTestsOptions {
@@ -20,6 +21,8 @@ export interface IRunTestsOptions {
   reporter?: string | undefined;
   ui?: string | undefined;
   timeout?: number | undefined;
+  grep?:string;
+  iterate?:number
 }
 
 export async function runTests(testFiles: string[], options: IRunTestsOptions = {}): Promise<void> {
@@ -49,6 +52,8 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
             MOCHA_COLOR: options.colors ?? true,
             MOCHA_REPORTER: options.reporter ?? 'spec',
             MOCHA_TIMEOUT: options.timeout ?? 2000,
+            MOCHA_GREP: options.grep ? `${JSON.stringify(options.grep)}` : 'null',
+            MOCHA_ITERATE: options.iterate
           },
         }),
       ],
