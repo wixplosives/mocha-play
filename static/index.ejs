@@ -24,7 +24,7 @@
       const timeout = <%= MOCHA_TIMEOUT %>;
       const grep = <%= MOCHA_GREP %>;
       const iterate = <%= MOCHA_ITERATE %>;
-      const env = <%= MOCHA_ENV %>;
+      window.env = <%= MOCHA_ENV %>;
 
       mocha.setup({ ui, reporter, color, timeout, grep });
 
