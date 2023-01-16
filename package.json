@@ -25,11 +25,11 @@
     "webpack": "^5.0.0"
   },
   "dependencies": {
-    "commander": "^9.5.0",
+    "commander": "^10.0.0",
     "create-listening-server": "^2.0.0",
     "express": "^4.18.2",
     "find-up": "^6.3.0",
-    "glob": "^8.0.3",
+    "glob": "^8.1.0",
     "html-webpack-plugin": "^5.5.0",
     "playwright-core": "^1.29.2",
     "webpack-dev-middleware": "^6.0.1"
@@ -41,15 +41,15 @@
     "@types/glob": "^8.0.0",
     "@types/mocha": "^10.0.1",
     "@types/node": "16",
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
-    "@typescript-eslint/parser": "^5.48.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
     "chai": "^4.3.7",
-    "eslint": "^8.31.0",
+    "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-no-only-tests": "^3.1.0",
     "mocha": "^10.2.0",
     "playwright-chromium": "^1.29.2",
-    "rimraf": "^4.0.4",
+    "rimraf": "^4.0.7",
     "typescript": "~4.9.4",
     "webpack": "^5.75.0"
   },
