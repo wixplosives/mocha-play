@@ -148,4 +148,12 @@ describe('mocha-play', function () {
     expect(output).to.include('9 passing');
     expect(status).to.equal(0);
   })
+ 
+  it('sets env in the browser to be process.env', ()=>{
+    process.env['mocha_env_test'] = 'true';
+    const { output, status } = runMochaPlay({ args: ['./env.unit.js'] });
+    expect(output).to.include('Found 1 test files');
+    expect(output).to.include('1 passing');
+    expect(status).to.equal(0);
+  })
 });
