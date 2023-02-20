@@ -43,8 +43,8 @@ program
       timeout,
       ui,
       port: preferredPort,
-      grep, 
-      iterate
+      grep,
+      iterate,
     } = cliOptions;
 
     const foundFiles: string[] = [];
@@ -93,8 +93,8 @@ program
       reporter: reporter || defaultReporter,
       timeout,
       ui,
-      grep, 
-      iterate
+      grep,
+      iterate,
     });
   })
   .parseAsync()
