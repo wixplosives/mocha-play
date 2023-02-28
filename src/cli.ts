@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { pathToFileURL, URL } from 'url';
 import { Command } from 'commander';
-import glob from 'glob';
+import { globSync } from 'glob';
 import type webpack from 'webpack';
 import type playwright from 'playwright-core';
 import { findUpSync } from 'find-up';
@@ -49,7 +49,7 @@ program
 
     const foundFiles: string[] = [];
     for (const arg of program.args) {
-      for (const foundFile of glob.sync(arg, { absolute: true })) {
+      for (const foundFile of globSync(arg, { absolute: true })) {
         foundFiles.push(path.normalize(foundFile));
       }
     }
