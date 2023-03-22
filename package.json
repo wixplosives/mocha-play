@@ -31,7 +31,7 @@
     "find-up": "^6.3.0",
     "glob": "^9.3.1",
     "html-webpack-plugin": "^5.5.0",
-    "playwright-core": "^1.31.2",
+    "playwright-core": "^1.32.0",
     "webpack-dev-middleware": "^6.0.2"
   },
   "devDependencies": {
