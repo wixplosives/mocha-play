@@ -32,7 +32,7 @@
     "glob": "^10.2.4",
     "html-webpack-plugin": "^5.5.1",
     "playwright-core": "^1.33.0",
-    "webpack-dev-middleware": "^6.1.0"
+    "webpack-dev-middleware": "^6.1.1"
   },
   "devDependencies": {
     "@ts-tools/webpack-loader": "^4.0.0",
