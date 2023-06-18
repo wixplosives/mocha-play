@@ -64,7 +64,7 @@
     "singleQuote": true
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "license": "MIT",
   "repository": "git@github.com:wixplosives/mocha-play.git"
