@@ -64,7 +64,7 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
       () =>
         new Promise<void>((res, rej) => {
           devMiddleware.close((e) => (e ? rej(e) : res()));
-        })
+        }),
     );
 
     compiler.hooks.done.tap('mocha-play', () => console.log(`Done bundling.`));
@@ -87,7 +87,7 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
       () =>
         new Promise<void>((res, rej) => {
           httpServer.close((e) => (e ? rej(e) : res()));
-        })
+        }),
     );
     console.log(`HTTP server is listening on port ${port}`);
 
