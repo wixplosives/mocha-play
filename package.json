@@ -31,7 +31,7 @@
     "find-up": "^6.3.0",
     "glob": "^10.3.3",
     "html-webpack-plugin": "^5.5.3",
-    "playwright-core": "^1.37.0",
+    "playwright-core": "^1.37.1",
     "webpack-dev-middleware": "^6.1.1"
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-no-only-tests": "^3.1.0",
     "mocha": "^10.2.0",
-    "playwright-chromium": "^1.37.0",
+    "playwright-chromium": "^1.37.1",
     "prettier": "^3.0.2",
     "rimraf": "^5.0.1",
     "typescript": "~5.1.6",
