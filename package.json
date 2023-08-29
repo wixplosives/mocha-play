@@ -18,6 +18,7 @@
     "test": "npm run test:only",
     "test:only": "mocha \"./dist/test/**/*.spec.js\"",
     "lint": "eslint .",
+    "prettify": "prettier . --write",
     "prepack": "npm run build"
   },
   "peerDependencies": {
