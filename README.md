@@ -13,7 +13,7 @@ Install `mocha-play` as a dev dependency:
 npm i mocha-play --save-dev
 ```
 
-`mocha-play` expects `mocha`, `playwright`/`playwright-chromium`, and `webpack` to also be installed in the project.
+`mocha-play` expects `mocha`, `playwright`, and `webpack` to also be installed in the project.
 
 ## Usage
 
