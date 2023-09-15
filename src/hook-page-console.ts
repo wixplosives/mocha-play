@@ -1,4 +1,4 @@
-import type playwright from 'playwright-core';
+import type playwright from 'playwright';
 
 /**
  * Hooks the console of a `playwright.Page` to Node's console,

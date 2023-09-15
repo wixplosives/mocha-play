@@ -1,7 +1,7 @@
 import { createRequire } from 'module';
 import path from 'path';
 import express from 'express';
-import playwright from 'playwright-core';
+import playwright from 'playwright';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
