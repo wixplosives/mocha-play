@@ -41,7 +41,7 @@
     "@types/chai": "^4.3.6",
     "@types/express": "^4.17.17",
     "@types/mocha": "^10.0.1",
-    "@types/node": "16",
+    "@types/node": "18",
     "@typescript-eslint/eslint-plugin": "^6.7.2",
     "chai": "^4.3.8",
     "eslint": "^8.49.0",
@@ -67,7 +67,7 @@
     "singleQuote": true
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "license": "MIT",
   "repository": "git@github.com:wixplosives/mocha-play.git"
