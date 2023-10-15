@@ -23,7 +23,6 @@
   },
   "peerDependencies": {
     "mocha": ">=7",
-    "playwright": ">=1.39.0",
     "webpack": "^5.0.0"
   },
   "dependencies": {
@@ -33,6 +32,7 @@
     "find-up": "^6.3.0",
     "glob": "^10.3.10",
     "html-webpack-plugin": "^5.5.3",
+    "playwright-core": "^1.38.0",
     "webpack-dev-middleware": "^6.1.1"
   },
   "devDependencies": {
@@ -48,7 +48,6 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-no-only-tests": "^3.1.0",
     "mocha": "^10.2.0",
-    "playwright": "^1.39.0",
     "prettier": "^3.0.3",
     "rimraf": "^5.0.5",
     "typescript": "~5.2.2",
