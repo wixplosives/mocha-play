@@ -23,6 +23,7 @@
   },
   "peerDependencies": {
     "mocha": ">=7",
+    "playwright": ">=1.39.0",
     "webpack": "^5.0.0"
   },
   "dependencies": {
@@ -32,7 +33,6 @@
     "find-up": "^6.3.0",
     "glob": "^10.3.10",
     "html-webpack-plugin": "^5.5.3",
-    "playwright-core": "^1.39.0",
     "webpack-dev-middleware": "^6.1.1"
   },
   "devDependencies": {
@@ -41,13 +41,14 @@
     "@types/chai": "^4.3.9",
     "@types/express": "^4.17.20",
     "@types/mocha": "^10.0.3",
-    "@types/node": "16",
+    "@types/node": "18",
     "@typescript-eslint/eslint-plugin": "^6.9.0",
     "chai": "^4.3.10",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-no-only-tests": "^3.1.0",
     "mocha": "^10.2.0",
+    "playwright": "^1.39.0",
     "prettier": "^3.0.3",
     "rimraf": "^5.0.5",
     "typescript": "~5.2.2",
@@ -66,7 +67,7 @@
     "singleQuote": true
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "license": "MIT",
   "repository": "git@github.com:wixplosives/mocha-play.git"
