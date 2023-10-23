@@ -5,7 +5,7 @@ import { pathToFileURL, URL } from 'url';
 import { Command } from 'commander';
 import { globSync } from 'glob';
 import type webpack from 'webpack';
-import type playwright from 'playwright';
+import type playwright from 'playwright-core';
 import { findUpSync } from 'find-up';
 import { runTests } from './run-tests.js';
 
