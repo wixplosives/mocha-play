@@ -1,7 +1,7 @@
-import { fileURLToPath, URL } from 'url';
-import { resolve } from 'path';
-import { spawnSync } from 'child_process';
 import { expect } from 'chai';
+import { spawnSync } from 'node:child_process';
+import { resolve } from 'node:path';
+import { fileURLToPath, URL } from 'node:url';
 
 const fixturesRoot = fileURLToPath(new URL('../../test/fixtures', import.meta.url));
 const cliEntryPath = fileURLToPath(new URL('../../bin/mocha-play.js', import.meta.url));

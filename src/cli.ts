@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-assignment */
-import fs from 'fs';
-import path from 'path';
-import { pathToFileURL, URL } from 'url';
 import { Command } from 'commander';
-import { globSync } from 'glob';
-import type webpack from 'webpack';
-import type playwright from 'playwright-core';
 import { findUpSync } from 'find-up';
+import { globSync } from 'glob';
+import fs from 'node:fs';
+import path from 'node:path';
+import { pathToFileURL, URL } from 'node:url';
+import type playwright from 'playwright-core';
+import type webpack from 'webpack';
 import { runTests } from './run-tests.js';
 
 const packageJsonPath = new URL('../package.json', import.meta.url);

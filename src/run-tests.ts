@@ -1,11 +1,11 @@
-import { createRequire } from 'module';
-import path from 'path';
+import { safeListeningHttpServer } from 'create-listening-server';
 import express from 'express';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { createRequire } from 'node:module';
+import path from 'node:path';
 import playwright from 'playwright-core';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import { safeListeningHttpServer } from 'create-listening-server';
 import { hookPageConsole } from './hook-page-console.js';
 
 const require = createRequire(import.meta.url);
