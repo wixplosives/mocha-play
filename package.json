@@ -39,7 +39,7 @@
     "webpack-dev-middleware": "^7.0.0"
   },
   "devDependencies": {
-    "@playwright/browser-chromium": "^1.41.1",
+    "@playwright/browser-chromium": "^1.41.2",
     "@ts-tools/webpack-loader": "^5.0.2",
     "@types/chai": "^4.3.11",
     "@types/express": "^4.17.21",
