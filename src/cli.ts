@@ -7,6 +7,7 @@ import path from 'node:path';
 import { pathToFileURL, URL } from 'node:url';
 import type playwright from 'playwright-core';
 import type webpack from 'webpack';
+import { type BuildOptions } from 'esbuild';
 import { runTests } from './run-tests.js';
 
 const packageJsonPath = new URL('../package.json', import.meta.url);
@@ -26,6 +27,7 @@ program
   .description(description)
   .usage('[options] <glob ...>')
   .option('-c, --webpack-config <config file>', 'webpack configuration file to bundle with')
+  .option('-e, --esbuild-config <config file>', 'esbuild configuration file to bundle with')
   .option('-w, --watch', 'never-closed, open browser, open-devtools, html-reporter session')
   .option('-l, --list-files', 'list found test files')
   .option('-t, --timeout <ms>', 'mocha timeout in ms', parseNumber, 2000)
@@ -37,6 +39,7 @@ program
   .action(async (cliOptions) => {
     const {
       webpackConfig: webpackConfigPath = findUpSync(['webpack.config.js', 'webpack.config.mjs', 'webpack.config.cjs']),
+      esbuildConfig: esbuildConfigPath = findUpSync(['esbuild.config.js', 'esbuild.config.mjs', 'esbuild.config.cjs']),
       watch,
       listFiles,
       reporter,
@@ -71,22 +74,27 @@ program
     const browserContextOptions: playwright.BrowserContextOptions = watch
       ? { viewport: null }
       : { viewport: { width: 1024, height: 768 } };
-
     // load user's webpack configuration
     const webpackConfig = webpackConfigPath
       ? ((await import(pathToFileURL(path.resolve(webpackConfigPath)).href)) as { default: webpack.Configuration })
           .default
-      : {};
+      : undefined;
 
     if (typeof webpackConfig === 'function') {
       throw new Error('Webpack configuration file exports a function, which is not yet supported.');
     }
 
+    const esbuildConfig = esbuildConfigPath
+      ? ((await import(pathToFileURL(path.resolve(esbuildConfigPath)).href)) as { default: BuildOptions }).default
+      : undefined;
+
     const defaultReporter = watch ? 'html' : 'spec';
 
     await runTests(foundFiles, {
       preferredPort,
-      webpackConfig,
+      config: webpackConfigPath
+        ? { kind: 'webpack', config: webpackConfig || {} }
+        : { kind: 'esbuild', config: esbuildConfig || {} },
       launchOptions,
       browserContextOptions,
       keepOpen: watch,

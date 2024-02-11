@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title><%= TITLE %></title>
     <link rel="stylesheet" href="mocha/mocha.css" />
     <script src="mocha/mocha.js"></script>
   </head>
@@ -45,5 +45,10 @@
             .on('end', () => {(mochaStatus.finished = true)});
       });
     </script>
+    <% if (locals.SCRIPTS) { %>
+      <% for (const script of locals.SCRIPTS) { %>
+    <script><%- script %></script>
+      <% } %>
+    <% } %>
   </body>
 </html>
