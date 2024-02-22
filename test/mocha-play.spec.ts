@@ -15,7 +15,7 @@ const runMochaPlay = (options: { args: string[]; fixture?: string }) => {
   return { status, output: output.map((o) => o || '').join('') };
 };
 
-describe('mocha-play', function () {
+describe('mocha-play (webpack)', function () {
   this.timeout(20_000);
 
   it('runs test files specified directly', () => {
@@ -147,5 +147,18 @@ describe('mocha-play', function () {
     expect(output).to.include('Found 2 test files');
     expect(output).to.include('9 passing');
     expect(status).to.equal(0);
+  });
+});
+
+describe('mocha-play (esbuild)', function () {
+  this.timeout(20_000);
+  it('fails when there are test errors (esbuild)', () => {
+    const { output, status } = runMochaPlay({ args: ['./should-fail.unit.js', '-e', './configs/esbuild.config.cjs'] });
+    expect(output).to.include('some error message');
+    expect(output).to.include('1 tests failed');
+    expect(status).to.not.equal(0);
+  });
+  it('TODO', () => {
+    expect(false).to.equal(true);
   });
 });
