@@ -38,7 +38,7 @@
   "devDependencies": {
     "@playwright/browser-chromium": "^1.41.2",
     "@ts-tools/webpack-loader": "^5.0.2",
-    "@types/chai": "^4.3.11",
+    "@types/chai": "^4.3.12",
     "@types/express": "^4.17.21",
     "@types/mocha": "^10.0.6",
     "@types/node": "18",
