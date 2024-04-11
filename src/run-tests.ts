@@ -107,7 +107,7 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
       page.once('crash', reject);
     });
 
-    await page.goto(`http://localhost:${port}/tests.html`);
+    await Promise.race([page.goto(`http://localhost:${port}/tests.html`), failsOnPageError]);
 
     const failedCount = await Promise.race([waitForTestResults(page), failsOnPageError]);
 
