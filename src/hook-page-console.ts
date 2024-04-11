@@ -4,11 +4,10 @@ import type playwright from 'playwright-core';
  * Hooks the console of a `playwright.Page` to Node's console,
  * printing anything from the page in Node.
  */
-export function hookPageConsole(page: playwright.Page): void {
+export function hookPageConsole(page: playwright.Page): () => void {
   let currentMessage: Promise<void> = Promise.resolve();
 
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  page.on('console', async (msg) => {
+  const onConsoleMessage = async (msg: playwright.ConsoleMessage): Promise<void> => {
     const consoleFn = messageTypeToConsoleFn[msg.type()];
     if (!consoleFn) {
       return;
@@ -26,7 +25,11 @@ export function hookPageConsole(page: playwright.Page): void {
     } finally {
       resolve();
     }
-  });
+  };
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  page.on('console', onConsoleMessage);
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  return () => page.off('console', onConsoleMessage);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

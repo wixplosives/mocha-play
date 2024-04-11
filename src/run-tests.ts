@@ -96,15 +96,21 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
     const context = await browser.newContext(browserContextOptions);
     const page = await context.newPage();
 
-    hookPageConsole(page);
+    const unhookPageConsole = hookPageConsole(page);
 
     page.on('dialog', (dialog) => {
       dialog.dismiss().catch((e) => console.error(e));
     });
 
     const failsOnPageError = new Promise((_resolve, reject) => {
-      page.once('pageerror', reject);
-      page.once('crash', reject);
+      page.once('pageerror', (e) => {
+        unhookPageConsole();
+        reject(e);
+      });
+      page.once('crash', () => {
+        unhookPageConsole();
+        reject(new Error('Page crashed'));
+      });
     });
 
     await Promise.race([page.goto(`http://localhost:${port}/tests.html`), failsOnPageError]);
