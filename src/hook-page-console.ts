@@ -26,9 +26,7 @@ export function hookPageConsole(page: playwright.Page): () => void {
       resolve();
     }
   };
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   page.on('console', onConsoleMessage);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
   return () => page.off('console', onConsoleMessage);
 }
 
