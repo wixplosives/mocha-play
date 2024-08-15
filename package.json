@@ -36,7 +36,6 @@
     "webpack-dev-middleware": "^7.3.0"
   },
   "devDependencies": {
-    "@eslint/compat": "^1.1.1",
     "@eslint/js": "^9.9.0",
     "@playwright/browser-chromium": "^1.46.0",
     "@ts-tools/webpack-loader": "^5.0.2",
@@ -47,7 +46,7 @@
     "chai": "^5.1.1",
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-no-only-tests": "^3.2.0",
+    "eslint-plugin-no-only-tests": "^3.3.0",
     "mocha": "^10.7.3",
     "prettier": "^3.3.3",
     "rimraf": "^6.0.1",
