@@ -17,7 +17,8 @@ export function hookPageConsole(page: playwright.Page): () => void {
     const previousMessage = currentMessage;
     currentMessage = promise;
     try {
-      const msgArgs = await Promise.all(msg.args().map((arg) => arg.jsonValue()));
+      const argsHandles = msg.args();
+      const msgArgs = argsHandles.length ? await Promise.all(argsHandles.map((arg) => arg.jsonValue())) : [msg.text()];
       await previousMessage;
       consoleFn.apply(console, msgArgs);
     } catch (e) {
