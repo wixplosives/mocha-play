@@ -36,7 +36,7 @@
     "webpack-dev-middleware": "^7.4.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.9.1",
+    "@eslint/js": "^9.10.0",
     "@playwright/browser-chromium": "^1.47.0",
     "@ts-tools/webpack-loader": "^6.0.0",
     "@types/chai": "^4.3.19",
