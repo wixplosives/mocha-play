@@ -44,7 +44,7 @@
     "@types/mocha": "^10.0.8",
     "@types/node": "20",
     "chai": "^5.1.1",
-    "eslint": "^9.10.0",
+    "eslint": "^9.11.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-no-only-tests": "^3.3.0",
     "mocha": "^10.7.3",
