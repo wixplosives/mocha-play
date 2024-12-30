@@ -34,6 +34,7 @@ program
   .option('-i, --iterate <number>', 'repeat each test a few times, regardless of outcome', parseNumber, 1)
   .option('--reporter <spec/html/dot/...>', 'mocha reporter to use (default: "spec")')
   .option('--ui <bdd|tdd|qunit|exports>', 'mocha user interface', 'bdd')
+  .allowExcessArguments()
   .action(async (cliOptions) => {
     const {
       webpackConfig: webpackConfigPath = findUpSync(['webpack.config.js', 'webpack.config.mjs', 'webpack.config.cjs']),
