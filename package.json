@@ -44,13 +44,13 @@
     "@types/node": "20",
     "chai": "^5.1.2",
     "eslint": "^9.18.0",
-    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-no-only-tests": "^3.3.0",
     "mocha": "^11.0.1",
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "typescript": "~5.7.3",
-    "typescript-eslint": "^8.19.1",
+    "typescript-eslint": "^8.20.0",
     "webpack": "^5.97.1"
   },
   "files": [
