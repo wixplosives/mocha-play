@@ -47,10 +47,10 @@
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-no-only-tests": "^3.3.0",
     "mocha": "^11.1.0",
-    "prettier": "^3.5.2",
+    "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "typescript": "~5.8.2",
-    "typescript-eslint": "^8.25.0",
+    "typescript-eslint": "^8.26.0",
     "webpack": "^5.98.0"
   },
   "files": [
@@ -69,8 +69,5 @@
     "node": ">=20"
   },
   "license": "MIT",
-  "repository": "git@github.com:wixplosives/mocha-play.git",
-  "overrides": {
-    "typescript": "~5.8.2"
-  }
+  "repository": "git@github.com:wixplosives/mocha-play.git"
 }
