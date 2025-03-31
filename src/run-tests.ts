@@ -77,12 +77,14 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
       throw new Error('Errors while bundling.');
     }
     const app = express();
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     app.use(devMiddleware);
     app.use('/mocha', express.static(path.dirname(require.resolve('mocha/package.json'))));
     app.use(express.static(compiler.options.context || process.cwd()));
 
-    const { httpServer, port } = await safeListeningHttpServer(preferredPort, app);
+    const { httpServer, port } = await safeListeningHttpServer(
+      preferredPort,
+      app as (request: import('http').IncomingMessage, response: import('http').ServerResponse) => void,
+    );
     closables.push(
       () =>
         new Promise<void>((res, rej) => {
