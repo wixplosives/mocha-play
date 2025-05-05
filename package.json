@@ -38,7 +38,7 @@
   "devDependencies": {
     "@playwright/browser-chromium": "^1.52.0",
     "@ts-tools/webpack-loader": "^6.1.0",
-    "@types/chai": "^5.2.1",
+    "@types/chai": "^5.2.2",
     "@types/express": "^5.0.1",
     "@types/mocha": "^10.0.10",
     "@types/node": "20",
@@ -50,7 +50,7 @@
     "prettier": "^3.5.3",
     "rimraf": "^6.0.1",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.31.1",
+    "typescript-eslint": "^8.32.0",
     "webpack": "^5.99.7"
   },
   "files": [
