@@ -69,5 +69,8 @@
     "node": ">=20"
   },
   "license": "MIT",
-  "repository": "git@github.com:wixplosives/mocha-play.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wixplosives/mocha-play.git"
+  }
 }
