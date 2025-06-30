@@ -32,11 +32,11 @@
     "find-up": "^7.0.0",
     "glob": "^11.0.3",
     "html-webpack-plugin": "^5.6.3",
-    "playwright-core": "^1.53.1",
+    "playwright-core": "^1.53.2",
     "webpack-dev-middleware": "^7.4.2"
   },
   "devDependencies": {
-    "@playwright/browser-chromium": "^1.53.1",
+    "@playwright/browser-chromium": "^1.53.2",
     "@ts-tools/webpack-loader": "^6.1.0",
     "@types/chai": "^5.2.2",
     "@types/express": "^5.0.3",
@@ -50,7 +50,7 @@
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.35.0",
+    "typescript-eslint": "^8.35.1",
     "webpack": "^5.99.9"
   },
   "files": [
