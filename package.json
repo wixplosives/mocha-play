@@ -32,7 +32,7 @@
     "find-up": "^7.0.0",
     "glob": "^11.0.3",
     "html-webpack-plugin": "^5.6.3",
-    "playwright-core": "^1.53.1",
+    "playwright-core": "^1.53.2",
     "webpack-dev-middleware": "^7.4.2"
   },
   "devDependencies": {
