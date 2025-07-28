@@ -59,6 +59,10 @@ export async function runTests(testFiles: string[], options: IRunTestsOptions = 
       stats: 'errors-warnings',
     });
 
+    if (!compiler) {
+      throw new Error('Failed to create webpack compiler.');
+    }
+
     const devMiddleware = webpackDevMiddleware(compiler);
     closables.push(
       () =>
