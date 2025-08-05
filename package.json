@@ -50,7 +50,7 @@
     "prettier": "^3.6.2",
     "rimraf": "^6.0.1",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.38.0",
+    "typescript-eslint": "^8.39.0",
     "webpack": "^5.101.0"
   },
   "files": [
